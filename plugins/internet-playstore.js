@@ -1,0 +1,20 @@
+import fetch from 'node-fetch'
+
+let handler = async(m, { conn, text }) => {
+  if (!text) throw `Mau Cari Apk Apa?`
+  m.reply(wait)
+  try {
+  let res = await fetch(`https://zeltoria.site/api/search/playstore?q=${text}`)
+  let anu = await res.json()
+  anu = anu.result.map((v) => `*Link:* ${v.link}\n*Nama:* ${v.nama}\n*Developer:* ${v.developer}\n*Rate:* ${v.rate}\n*Rate 2:* ${v.rate2}\n*Link:* ${v.link}\nLinkDev: ${v.link_dev}`).join`\n\n°°°°°°°°°°°°°°°°°°°°°°°°°°°°°\n\n`
+  m.reply(anu)
+  } catch (e) {
+  m.reply(`Tidak Dapat Menemukan Apa Yang Kamu Cari`)
+  }
+}
+handler.help = ['playstore']
+handler.tags = ['internet']
+handler.command = /^(playstore)$/i
+handler.limit = true
+
+export default handler
